@@ -8,7 +8,7 @@ class SkyhookSQLClient:
         self.opt_list = None
         self.command = None
         self.command_list = []
-        self.default_command = 'bin/run-query --num-objs 2 --pool tpchdata '
+        self.default_command = 'bin/run-query --num-objs 2 --pool tpchdata --oid-prefix \"public\" '
 
     def clearPreviousQuery(self):
         self.command_list = []

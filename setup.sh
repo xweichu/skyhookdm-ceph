@@ -1,6 +1,6 @@
 echo "Updating. Installing python-pip3 and sqlparse module"
-sudo apt-get update
-sudo apt-get install python-pip3 -y
+# sudo apt-get update 
+apt-get install python-pip3 -y
 pip3 install sqlparse
 
 echo "Creating storage pool"
