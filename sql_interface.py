@@ -35,17 +35,6 @@ class SkyhookSQLClient:
     
     def enterQuery(self):
         def extractQueryInfo(parsed):
-            def extract_where(parsed):
-                    where_seen = False
-                    for item in parsed.tokens:
-                        if where_seen:
-                            if item.ttype is Keyword:
-                                return
-                            else:
-                                yield item
-                        elif item.ttype is Keyword and item.value.upper() == 'WHERE':
-                            where_seen = True
-
             def extract_from(parsed):
                     from_seen = False
                     for item in parsed.tokens:
@@ -79,12 +68,11 @@ class SkyhookSQLClient:
             print(parsed.tokens)
             select_stream = extract_select(parsed)
             from_stream = extract_from(parsed)
-            where_stream = extract_where(parsed)
+            # where_stream = extract_where(parsed)
 
             select_list = list(extract_identifiers(select_stream))
             from_list = list(extract_identifiers(from_stream))
-            where_stream = list(extract_identifiers(where_stream))
-            return (select_list, from_list, where_stream)
+            return (select_list, from_list)
         
         def formatQueryTupleToList(queryTuple):
             listQuery, formattedList = [], []
@@ -118,11 +106,7 @@ class SkyhookSQLClient:
 
     def execQuery(self, cmd):
         print('Executing command: ' + cmd)
-<<<<<<< HEAD
-        prog = 'cd ~/skyhookdm-ceph && /build/bin/run-query '
-=======
-        prog = 'cd ~/skyhookd-ceph && /build/bin/run-query '
->>>>>>> 57a5e0e9ee6e970b70863e77b71ff2d82eccf120
+        prog = 'skyhookdm-ceph/build/bin/run-query '
         result = os.popen(prog + cmd).read()
         print(result)
         return
